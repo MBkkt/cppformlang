@@ -39,7 +39,7 @@ CPMAddPackage(
 
 # ---- Create binary ----
 
-file(GLOB sources CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp)
+file(GLOB_RECURSE sources CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp)
 add_executable(cppformlang_tests ${sources})
 target_link_libraries(cppformlang_tests doctest cppformlang)
 
@@ -48,7 +48,7 @@ set_target_properties(cppformlang_tests PROPERTIES CXX_STANDARD 17)
 # enable compiler warnings
 if(NOT TEST_INSTALLED_VERSION)
   if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-    target_compile_options(cppformlang PUBLIC -Wall -pedantic -Wextra -Werror)
+    target_compile_options(cppformlang PUBLIC -Wall -pedantic -Wextra)
   elseif(MSVC)
     target_compile_options(cppformlang PUBLIC /W4 /WX)
     target_compile_definitions(cppformlang_tests PUBLIC DOCTEST_CONFIG_USE_STD_HEADERS)
