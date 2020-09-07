@@ -1,4 +1,5 @@
-#include <cppformlang/finite_automata/nondeterministic_transition_function.h>
+#include <cppformlang/finite_automata/nondeterministic_transitions.h>
+
 namespace cppformlang::finite_automata {
 
 bool NondeterministicTransitions::AddTransition(State from, Symbol by,

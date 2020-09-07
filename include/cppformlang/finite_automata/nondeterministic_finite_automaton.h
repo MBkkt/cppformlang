@@ -7,7 +7,7 @@
 
 #include "finite_automata.h"
 #include "finite_automation.h"
-#include "nondeterministic_transition_function.h"
+#include "nondeterministic_transitions.h"
 
 namespace cppformlang::finite_automata {
 
