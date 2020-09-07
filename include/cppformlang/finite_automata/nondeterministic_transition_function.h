@@ -17,6 +17,32 @@ namespace cppformlang::finite_automata {
 class NondeterministicTransitions {
  public:
   /**
+   * \brief Whether the transition function is deterministic
+   *
+   * \param[in,out] f The functor
+   *
+   * \return Nothing
+   */
+  template <typename Functor>
+  void ForeachTransition(Functor f) const {
+    for (auto& [from, by_set] : transitions_) {
+      for (auto& [by, to_set] : by_set) {
+        for (auto& to : to_set) {
+          f(from, by, to);
+        }
+      }
+    }
+  }
+
+  /**
+   * \brief Gives the number of transitions describe by the function
+   *
+   * \return The number of transitions
+   */
+  std::size_t TransitionsCount() const;
+
+ protected:
+  /**
    * \brief Adds a new transition to the function
    *
    * \param[in] from The source state
@@ -39,36 +65,11 @@ class NondeterministicTransitions {
   bool RemoveTransition(State from, Symbol by, State to);
 
   /**
-   * \brief Gives the number of transitions describe by the function
-   *
-   * \return The number of transitions
-   */
-  std::size_t Size() const;
-
-  /**
    * \brief Whether the transition function is deterministic
    *
    * \return Whether the function is deterministic
    */
   bool IsDeterministic() const;
-
-  /**
-   * \brief Whether the transition function is deterministic
-   *
-   * \param[in,out] f The functor
-   *
-   * \return Nothing
-   */
-  template <typename Functor>
-  void ForeachTransition(Functor f) const {
-    for (auto& [from, by_set] : transitions_) {
-      for (auto& [by, to_set] : by_set) {
-        for (auto& to : to_set) {
-          f(from, by, to);
-        }
-      }
-    }
-  }
 
   /**
    * \brief Removes a transition to the function

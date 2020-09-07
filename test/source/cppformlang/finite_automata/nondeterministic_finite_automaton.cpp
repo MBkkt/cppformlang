@@ -16,12 +16,12 @@ TEST_CASE("ToDeterministic1") {
   nfa.AddTransition(state0, symbol0, state1);
   nfa.AddTransition(state0, symbol1, state0);
   nfa.AddTransition(state1, symbol1, state2);
-  nfa.SetState(state0, true, false);
-  nfa.SetState(state1, false, true);
+  nfa.SetStartState(state0, true);
+  nfa.SetFinalState(state1, true);
   auto dfa = nfa.ToDeterministic();
   CHECK(dfa.IsDeterministic());
-  CHECK(dfa.StateCount() == 3);
-  CHECK(dfa.TransitionCount() == 6);
+  CHECK(dfa.StatesCount() == 3);
+  CHECK(dfa.TransitionsCount() == 6);
 }
 
 TEST_CASE("ToDeterministic2") {
@@ -37,10 +37,10 @@ TEST_CASE("ToDeterministic2") {
   nfa.AddTransition(state0, symbol1, state0);
   nfa.AddTransition(state1, symbol1, state1);
 
-  nfa.SetState(state0, true, false);
-  nfa.SetState(state1, false, true);
+  nfa.SetStartState(state0, true);
+  nfa.SetFinalState(state1, true);
   auto dfa = nfa.ToDeterministic();
   CHECK(dfa.IsDeterministic());
-  CHECK(dfa.StateCount() == 2);
-  CHECK(dfa.TransitionCount() == 4);
+  CHECK(dfa.StatesCount() == 2);
+  CHECK(dfa.TransitionsCount() == 4);
 }

@@ -32,7 +32,7 @@ bool NondeterministicTransitions::RemoveTransition(State from, Symbol by,
   return true;
 }
 
-size_t NondeterministicTransitions::Size() const {
+size_t NondeterministicTransitions::TransitionsCount() const {
   std::size_t size = 0;
   for (auto& [_, from] : transitions_) {
     for (auto& [_, by] : from) {
