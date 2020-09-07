@@ -8,6 +8,7 @@
 #include "finite_automata.h"
 
 namespace cppformlang::finite_automata {
+
 /**
  * \brief A nondeterministic transition function in a finite automaton.
  *
