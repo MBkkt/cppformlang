@@ -6,7 +6,7 @@
 namespace cppformlang::finite_automata {
 
 using Symbol = std::int32_t;
-using State = std::int32_t;
+using State = std::uint32_t;
 
 inline constexpr Symbol kEpsilon = std::numeric_limits<Symbol>::min();
 

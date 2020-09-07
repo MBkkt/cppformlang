@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 project(cppformlang_tests LANGUAGES CXX)
 
@@ -33,8 +33,6 @@ CPMAddPackage(
   VERSION 1.6
   OPTIONS # enable cmake formatting
           "FORMAT_CHECK_CMAKE ON"
-          # skip CPM.cmake
-          "CMAKE_FORMAT_EXCLUDE cmake/CPM.cmake"
 )
 
 # ---- Create binary ----
@@ -50,7 +48,7 @@ if(NOT TEST_INSTALLED_VERSION)
   if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     target_compile_options(cppformlang PUBLIC -Wall -pedantic -Wextra)
   elseif(MSVC)
-    target_compile_options(cppformlang PUBLIC /W4 /WX)
+    target_compile_options(cppformlang PUBLIC /Wall)
     target_compile_definitions(cppformlang_tests PUBLIC DOCTEST_CONFIG_USE_STD_HEADERS)
   endif()
 endif()
