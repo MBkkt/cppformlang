@@ -140,24 +140,24 @@ NondeterministicFiniteAutomaton NondeterministicFiniteAutomaton::Minimize()
   // auto reachable_states = GetReachableStates();
   // std::unordered_set<State> states;
   // std::set_intersection(states_.begin(), states_.end(),
-  //                      reachable_states.begin(), reachable_states.end(),
-  //                      states.begin());
+  //                       reachable_states.begin(), reachable_states.end(),
+  //                       states.begin());
   // auto partition = GetPartition();
   // auto groups = GetGroups();
   // std::unordered_map<State, State> to_new_states;
   // State new_state = 0;
   // for (const auto& group : groups) {
-  //  for (auto state : group) {
-  //    to_new_states[state] = new_state;
-  //  }
-  //  ++new_state;
-  //}
+  //   for (auto state : group) {
+  //     to_new_states[state] = new_state;
+  //   }
+  //   ++new_state;
+  // }
   // for (auto state : start_states_) {
-  //  dfa.SetState(to_new_states[state], true, false);
-  //}
+  //   dfa.SetStartState(to_new_states[state], true);
+  // }
   // for (auto state : start_states_) {
-  //  dfa.SetState(to_new_states[state], false, true);
-  //}
+  //   dfa.SetFinalState(to_new_states[state], true);
+  // }
   return dfa;
 }
 
