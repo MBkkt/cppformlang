@@ -68,7 +68,7 @@ endif()
 if(USE_CCACHE)
   CPMAddPackage(
     NAME Ccache.cmake
-    GITHUB_REPOSITORY MBkkt/Ccache.cmake
-    VERSION 1.1
+    GITHUB_REPOSITORY TheLartians/Ccache.cmake
+    VERSION 1.2.1
   )
 endif()
