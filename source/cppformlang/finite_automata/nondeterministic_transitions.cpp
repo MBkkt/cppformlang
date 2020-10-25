@@ -2,13 +2,11 @@
 
 namespace cppformlang::finite_automata {
 
-bool NondeterministicTransitions::AddTransition(State from, Symbol by,
-                                                State to) {
+bool NondeterministicTransitions::AddTransition(State from, Symbol by, State to) {
   return transitions_[from][by].insert(to).second;
 }
 
-bool NondeterministicTransitions::RemoveTransition(State from, Symbol by,
-                                                   State to) {
+bool NondeterministicTransitions::RemoveTransition(State from, Symbol by, State to) {
   auto it_from = transitions_.find(from);
   if (it_from == transitions_.end()) {
     return false;
@@ -43,8 +41,7 @@ size_t NondeterministicTransitions::TransitionsCount() const {
   return size;
 }
 
-const std::unordered_set<State>* NondeterministicTransitions::operator()(
-    State from, Symbol by) const {
+const std::unordered_set<State>* NondeterministicTransitions::operator()(State from, Symbol by) const {
   auto it_from = transitions_.find(from);
   if (it_from == transitions_.end()) {
     return nullptr;

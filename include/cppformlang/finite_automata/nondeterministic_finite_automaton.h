@@ -14,8 +14,7 @@ namespace cppformlang::finite_automata {
 /**
  * \brief Represents a general finite automaton
  */
-class NondeterministicFiniteAutomaton
-    : public FiniteAutomaton<NondeterministicTransitions> {
+class NondeterministicFiniteAutomaton : public FiniteAutomaton<NondeterministicTransitions> {
  public:
   NondeterministicFiniteAutomaton();
 
@@ -69,8 +68,7 @@ class NondeterministicFiniteAutomaton
   NondeterministicFiniteAutomaton Minimize() const;
 
  private:
-  std::unordered_set<State> GetNextStates(
-      const std::unordered_set<State>& current_states, Symbol symbol) const;
+  std::unordered_set<State> GetNextStates(const std::unordered_set<State>& current_states, Symbol symbol) const;
 };
 
 }  // namespace cppformlang::finite_automata

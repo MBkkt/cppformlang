@@ -4,8 +4,7 @@
 namespace cppformlang::finite_automata {
 
 template <typename Transitions>
-bool FiniteAutomaton<Transitions>::AddTransition(State from, Symbol by,
-                                                 State to) {
+bool FiniteAutomaton<Transitions>::AddTransition(State from, Symbol by, State to) {
   if (!Transitions::AddTransition(from, by, to)) {
     return false;
   }
@@ -15,8 +14,7 @@ bool FiniteAutomaton<Transitions>::AddTransition(State from, Symbol by,
   return true;
 }
 template <typename Transitions>
-bool FiniteAutomaton<Transitions>::RemoveTransition(State from, Symbol by,
-                                                    State to) {
+bool FiniteAutomaton<Transitions>::RemoveTransition(State from, Symbol by, State to) {
   if (!Transitions::RemoveTransition(from, by, to)) {
     return false;
   }

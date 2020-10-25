@@ -13,13 +13,11 @@ bool NondeterministicFiniteAutomaton::IsDeterministic() const {
   if (start_states_.size() > 1 || !FiniteAutomaton::IsDeterministic()) {
     return false;
   }
-  return std::all_of(states_.begin(), states_.end(), [this](const auto& state) {
-    return Eclose(state.first).size() <= 1;
-  });
+  return std::all_of(states_.begin(), states_.end(),
+                     [this](const auto& state) { return Eclose(state.first).size() <= 1; });
 }
 
-std::unordered_set<State> NondeterministicFiniteAutomaton::Eclose(
-    State state) const {
+std::unordered_set<State> NondeterministicFiniteAutomaton::Eclose(State state) const {
   std::unordered_set<State> processed{state};
   std::stack<State> to_process;
   to_process.push(state);
@@ -44,8 +42,7 @@ struct HashStates {
   }
 };
 
-NondeterministicFiniteAutomaton
-NondeterministicFiniteAutomaton::ToDeterministic() const {
+NondeterministicFiniteAutomaton NondeterministicFiniteAutomaton::ToDeterministic() const {
   NondeterministicFiniteAutomaton dfa;
   if (start_states_.empty()) {
     assert(states_.empty());
@@ -99,8 +96,7 @@ NondeterministicFiniteAutomaton::ToDeterministic() const {
   dfa.SetStartState(1, true);
   return dfa;
 }
-bool NondeterministicFiniteAutomaton::Accepts(const Symbol* begin,
-                                              const Symbol* end) const {
+bool NondeterministicFiniteAutomaton::Accepts(const Symbol* begin, const Symbol* end) const {
   std::unordered_set<State> current_states;
   for (auto start : start_states_) {
     auto start_set = Eclose(start);
@@ -118,9 +114,7 @@ bool NondeterministicFiniteAutomaton::Accepts(const Symbol* begin,
     }
   }
   return std::any_of(current_states.begin(), current_states.end(),
-                     [this](const auto& state) {
-                       return final_states_.find(state) != final_states_.end();
-                     });
+                     [this](const auto& state) { return final_states_.find(state) != final_states_.end(); });
 }
 
 std::unordered_set<State> NondeterministicFiniteAutomaton::GetNextStates(
@@ -134,8 +128,7 @@ std::unordered_set<State> NondeterministicFiniteAutomaton::GetNextStates(
   return next_states;
 }
 
-NondeterministicFiniteAutomaton NondeterministicFiniteAutomaton::Minimize()
-    const {
+NondeterministicFiniteAutomaton NondeterministicFiniteAutomaton::Minimize() const {
   auto dfa = ToDeterministic();
   // auto reachable_states = GetReachableStates();
   // std::unordered_set<State> states;
@@ -169,24 +162,17 @@ void NondeterministicFiniteAutomaton::Union(const FiniteAutomaton& other) {
     }
   });
 
-  other.ForeachTransition(
-      [&](const auto& other_from, const auto& by, const auto& other_to) {
-        AddTransition(other_from + max_state_number, by,
-                      other_to + max_state_number);
-      });
+  other.ForeachTransition([&](const auto& other_from, const auto& by, const auto& other_to) {
+    AddTransition(other_from + max_state_number, by, other_to + max_state_number);
+  });
 
   start_states_.reserve(start_states_.size() + other.StartStatesCount());
-  other.ForeachStartState([&](const auto& state) {
-    start_states_.insert(state + max_state_number);
-  });
+  other.ForeachStartState([&](const auto& state) { start_states_.insert(state + max_state_number); });
   final_states_.reserve(final_states_.size() + other.FinalStatesCount());
-  other.ForeachFinalState([&](const auto& state) {
-    final_states_.insert(state + max_state_number);
-  });
+  other.ForeachFinalState([&](const auto& state) { final_states_.insert(state + max_state_number); });
 }
 
-void NondeterministicFiniteAutomaton::Concatenate(
-    const FiniteAutomaton& other) {
+void NondeterministicFiniteAutomaton::Concatenate(const FiniteAutomaton& other) {
   State max_state_number = 0;
   ForeachState([&](const auto& state) {
     if (max_state_number < state) {
@@ -194,30 +180,23 @@ void NondeterministicFiniteAutomaton::Concatenate(
     }
   });
 
-  other.ForeachTransition(
-      [&](const auto& other_from, const auto& by, const auto& other_to) {
-        AddTransition(other_from + max_state_number, by,
-                      other_to + max_state_number);
-      });
+  other.ForeachTransition([&](const auto& other_from, const auto& by, const auto& other_to) {
+    AddTransition(other_from + max_state_number, by, other_to + max_state_number);
+  });
 
   other.ForeachStartState([&](const auto& other_to) {
     auto to = other_to + max_state_number;
-    ForeachFinalState(
-        [&](const auto& from) { AddTransition(from, kEpsilon, to); });
+    ForeachFinalState([&](const auto& from) { AddTransition(from, kEpsilon, to); });
   });
 
   final_states_.clear();
   final_states_.reserve(other.FinalStatesCount());
-  other.ForeachFinalState([&](const auto& state) {
-    final_states_.insert(state + max_state_number);
-  });
+  other.ForeachFinalState([&](const auto& state) { final_states_.insert(state + max_state_number); });
 }
 
 void NondeterministicFiniteAutomaton::KleeneStar() {
-  ForeachFinalState([this](const auto& from) {
-    ForeachStartState(
-        [&](const auto& to) { AddTransition(from, kEpsilon, to); });
-  });
+  ForeachFinalState(
+      [this](const auto& from) { ForeachStartState([&](const auto& to) { AddTransition(from, kEpsilon, to); }); });
   final_states_.insert(start_states_.begin(), start_states_.end());
 }
 
@@ -267,13 +246,11 @@ static std::string ToPostfix(const std::string& regex) {
   return answer + std::string{operators.rbegin(), operators.rend()};
 }
 
-NondeterministicFiniteAutomaton NondeterministicFiniteAutomaton::FromRegex(
-    const std::string& regex) {
+NondeterministicFiniteAutomaton NondeterministicFiniteAutomaton::FromRegex(const std::string& regex) {
   auto postfix_regex = ToPostfix(regex);
   std::stack<NondeterministicFiniteAutomaton> operands;
   bool ignore = false;
-  for (auto begin = postfix_regex.begin(), end = postfix_regex.end();
-       begin != end; ++begin) {
+  for (auto begin = postfix_regex.begin(), end = postfix_regex.end(); begin != end; ++begin) {
     if (ignore) {
       operands.push(NondeterministicFiniteAutomaton{*begin});
       ignore = false;
