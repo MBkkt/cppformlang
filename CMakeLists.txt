@@ -43,7 +43,7 @@ file(GLOB_RECURSE sources CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/source/
 # target: add_library(cppformlang INTERFACE) set_target_properties(cppformlang PROPERTIES
 # INTERFACE_COMPILE_FEATURES cxx_std_17)
 
-add_library(cppformlang ${headers} ${sources})
+add_library(cppformlang ${headers} ${sources} include/cppformlang/finite_automata/recursive_automation.h)
 
 set_target_properties(cppformlang PROPERTIES CXX_STANDARD 17)
 

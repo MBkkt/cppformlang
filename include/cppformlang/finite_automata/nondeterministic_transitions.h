@@ -83,9 +83,7 @@ class NondeterministicTransitions {
   const std::unordered_set<State>* operator()(State from, Symbol by) const;
 
  private:
-  std::unordered_map<State,
-                     std::unordered_map<Symbol, std::unordered_set<State>>>
-      transitions_;
+  std::unordered_map<State, std::unordered_map<Symbol, std::unordered_set<State>>> transitions_;
 };
 
 }  // namespace cppformlang::finite_automata
